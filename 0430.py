@@ -1,7 +1,7 @@
 # 載入必要模組
 import os
 #os.chdir(r'C:\Users\user\Dropbox\系務\專題實作\112\金融看板\for students')
-import haohaninfo
+#import haohaninfo
 from order_Lo8 import Record
 import numpy as np
 from talib.abstract import SMA,EMA, WMA, RSI, BBANDS, MACD
