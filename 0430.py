@@ -305,8 +305,8 @@ with st.expander("長短 RSI"):
     #fig2.add_trace(go.Scatter(x=KBar_df['Time'][last_nan_index_RSI+1:], y=KBar_df['RSI_short'][last_nan_index_RSI+1:], mode='lines',line=dict(color='blue', width=2), name=f'{ShortRSIPeriod}-根 K棒 移動 RSI'), 
                   #secondary_y=False)
     
-    #fig2.layout.yaxis2.showgrid=True
-    #st.plotly_chart(fig2, use_container_width=True)
+    fig2.layout.yaxis2.showgrid=True
+    st.plotly_chart(fig2, use_container_width=True)
 
 
 
