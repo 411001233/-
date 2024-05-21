@@ -11,7 +11,7 @@ import indicator_forKBar_short
 import pandas as pd
 import streamlit as st 
 import streamlit.components.v1 as stc 
-
+import csv,os,time,twstock
 
 ###### (1) 開始設定 ######
 html_temp = """
@@ -33,14 +33,39 @@ stc.html(html_temp)
 
 ## 读取Pickle文件
 @st.cache_data(ttl=3600, show_spinner="正在加載資料...")  # 👈 Add the caching decorator
-def load_data(url):
-    df = pd.read_csv(url)
-    return df
-df_original = pd.read_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
+filepath = 'twstockyear2021_test1.csv'
+
+if not os.path.isfile(filepath):  #如果檔案不存在就建立檔案
+    title=["time","成交股數","amount","open","high","low","close","漲跌價差","volume"]
+    outputfile = open(filepath, 'a', newline='', encoding='big5')  #開啟儲存檔案
+    outputwriter = csv.writer(outputfile)  #以csv格式寫入檔案
+    for i in range(1,13):  #設定下載的月份
+        stock = twstock.Stock('2729')  # 建立 Stock 物件
+        stocklist=stock.fetch(2022,i)  # stocklist 是存放第 "i" 月的 "所有交易日" 的 "所有" 股價資料
+      
+        data=[]  ## data 是存放第 "i" 月的 "所有交易日" 的 "自選項目" 股價資料. 輪到不同月份時就會清空.
+        for stock in stocklist:  ## 迴圈變數 "stock" 與 stock = twstock.Stock('2317') 的 Stock 物件 同名, 較不好
+            strdate=stock.date.strftime("%Y-%m-%d") #  將datetime物件轉換為字串
+            # 讀取 日期,成交股數,成交金額,開盤價,最高價,最低價,收盤價,漲跌價差,成交筆數
+            li=[strdate,stock.capacity,stock.turnover,stock.open,stock.high,stock.low,\
+                stock.close,stock.change,stock.transaction]
+            data.append(li) 
+
+        if i==1:  #若是1月就寫入欄位名稱
+            outputwriter.writerow(title) #寫入標題
+        for dataline in (data):  #逐月寫入資料
+            outputwriter.writerow(dataline)
+        time.sleep(1)  #延遲1秒,否則有時會有錯誤
+    outputfile.close()  #關閉檔案
+
+df_original = pd.read_csv(filepath, encoding='big5') 
+
+
+
 
 
 #df.columns  ## Index(['Unnamed: 0', 'time', 'open', 'low', 'high', 'close', 'volume','amount'], dtype='object')
-df_original = df_original.drop('Unnamed: 0',axis=1)
+#df_original = df_original.drop('Unnamed: 0',axis=1)
 #df.columns  ## Index(['time', 'open', 'low', 'high', 'close', 'volume', 'amount'], dtype='object')
 #df['time']
 #type(df['time'])  ## pandas.core.series.Series
