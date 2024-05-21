@@ -33,7 +33,7 @@ stc.html(html_temp)
 
 ## 读取Pickle文件
 
-df_original = pd.read_csv(filepath, encoding='big5') 
+df_original = pd.read_csv(twstockyear2021_test1.csv, encoding='big5') 
 
 
 
