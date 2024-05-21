@@ -11,7 +11,7 @@ import indicator_forKBar_short
 import pandas as pd
 import streamlit as st 
 import streamlit.components.v1 as stc 
-import csv,os,time,twstock
+
 
 ###### (1) 開始設定 ######
 html_temp = """
