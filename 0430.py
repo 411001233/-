@@ -29,14 +29,12 @@ stc.html(html_temp)
 #df_original = pd.read_excel("kbars_2330_2022-01-01-2022-11-18.xlsx")
 
 # ## 保存为Pickle文件:
-df_original.to_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
+#df_original.to_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
 
 ## 读取Pickle文件
+df_original = pd.read_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
 
 #df_original = pd.read_csv('twstockyear2021_test1.csv', encoding='big5') 
-
-
-
 
 
 #df.columns  ## Index(['Unnamed: 0', 'time', 'open', 'low', 'high', 'close', 'volume','amount'], dtype='object')
