@@ -16,7 +16,6 @@ import indicator_f_Lo2_short,datetime, indicator_forKBar_short
 import pandas as pd
 import streamlit as st 
 import streamlit.components.v1 as stc 
-
 import matplotlib.pyplot as plt
 import matplotlib
 
