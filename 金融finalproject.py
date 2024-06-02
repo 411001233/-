@@ -72,6 +72,10 @@ if choice == '瓦城: 2022.1.3 至 2022.12.30':
 start_date = datetime.datetime.strptime(start_date,'%Y-%m-%d')
 end_date =datetime.datetime.strptime(end_date,'%Y-%m-%d')
 # 使用条件筛选选择时间区间的数据
+df_original['time'] = pd.to_datetime(df_original['time'])
+start_date = pd.to_datetime(start_date)
+end_date = pd.to_datetime(end_date)
+
 df = df_original[(df_original['time'] >= start_date) & (df_original['time'] <= end_date)]
 
 
