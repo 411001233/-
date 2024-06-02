@@ -32,7 +32,7 @@ stc.html(html_temp)
 
 
 ###### 讀取資料
-df_original = pd.read_csv('twstockyear2021_test1.csv')
+df_original = pd.read_csv('twstockyear2021_test1.csv', encoding='big5')
 df_original.to_pickle('twstockyear2021_test1.pkl')
 @st.cache_data(ttl=3600, show_spinner="正在加載資料...")  ## Add the caching decorator
 def load_data(path):
