@@ -69,8 +69,8 @@ if choice == '台積電: 2022.1.1 至 2024.4.9':
     end_date = st.text_input('輸入結束日期 (日期格式: 2022-01-04), 區間:2022-01-01 至 2022-12-30', '2022-04-09')
 
 
-start_date = datetime.datetime.strptime(start_date,'%Y-%m-%d')
-end_date = datetime.datetime.strptime(end_date,'%Y-%m-%d')
+start_date = time.datetime.strptime(start_date,'%Y-%m-%d')
+end_date = time.datetime.strptime(end_date,'%Y-%m-%d')
 # 使用条件筛选选择时间区间的数据
 df = df_original[(df_original['time'] >= start_date) & (df_original['time'] <= end_date)]
 
