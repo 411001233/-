@@ -148,7 +148,7 @@ def Change_Cycle(Date,cycle_duration,KBar_dic):
     
 
 ###### 改變日期資料型態
-Date = start_date
+Date = start_date.strftime("%Y-%m-%d")
 
 
 st.subheader("設定技術指標視覺化圖形之相關參數:")
