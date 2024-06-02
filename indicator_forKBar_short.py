@@ -7,6 +7,21 @@ import matplotlib.dates as mdates
     
 # 算K棒
 class KBar():
+    def __init__(self, date, cycle_duration):
+        # 打印date變數的值以便調試
+        print(f"Received date: {date}")
+        
+        # 檢查date變數是否是字符串，並轉換為字符串（如果必要）
+        if not isinstance(date, str):
+            date = str(date)
+        
+        try:
+            self.current = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        except ValueError as e:
+            print(f"Error parsing date: {date}")
+            raise e
+        self.cycle_duration = cycle_duration
+        # 其他初始化代碼...
     # 設定初始化變數
     def __init__(self,date,cycle = 1):
         # K棒的頻率(分鐘)
