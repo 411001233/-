@@ -33,6 +33,8 @@ stc.html(html_temp)
 
 
 ###### 讀取資料
+df_original = pd.read_csv('twstockyear2021_test1.csv')
+df_original.to_pickle('twstockyear2021_test1.pkl')
 @st.cache_data(ttl=3600, show_spinner="正在加載資料...")  ## Add the caching decorator
 def load_data(path):
     df = pd.read_pickle(path)
@@ -44,11 +46,11 @@ def load_data(path):
 ###### 選擇金融商品
 st.subheader("選擇金融商品: ")
 # choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指2024.12到期: 2024.1 至 2024.4.9']
-choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指期貨2024.12到期: 2023.12 至 2024.4.11', '小台指期貨2024.12到期: 2023.12 至 2024.4.11', '英業達2020.1.2 至 2024.4.12', '堤維西2020.1.2 至 2024.4.12']
+choices = ['瓦城: 2022.1.3 至 2022.12.30']
 choice = st.selectbox('選擇金融商品', choices, index=0)
 ##### 读取Pickle文件
-if choice == '台積電: 2022.1.1 至 2024.4.9':
-    df_original = load_data('kbars_2330_2022-01-01-2024-04-09.pkl')
+if choice == '瓦城: 2022.1.3 至 2022.12.30':
+    df_original = load_data('twstockyear2021_test1.pkl')
     # df_original = load_data('kbars_2330_2022-01-01-2024-04-09.pkl')
     # df_original = load_data('kbars_2330_2022-01-01-2022-11-18.pkl')  
     # df_original = pd.read_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
@@ -56,14 +58,7 @@ if choice == '台積電: 2022.1.1 至 2024.4.9':
     # df_original = df_original.drop('Unnamed: 0',axis=1)
 # if choice == '大台指2024.12到期: 2024.1 至 2024.4.9':
 #     df_original = load_data('kbars_TXF202412_2024-01-01-2024-04-09.pkl')  
-if choice == '大台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    df_original = load_data('kbars_TXF202412_2023-12-21-2024-04-11.pkl')
-if choice == '小台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    df_original = load_data('kbars_MXF202412_2023-12-21-2024-04-11.pkl')
-if choice == '英業達2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_2356_2020-01-01-2024-04-12.pkl')
-if choice == '堤維西2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+
 
 
 
@@ -71,21 +66,8 @@ if choice == '堤維西2020.1.2 至 2024.4.12':
 ###### 選擇資料區間
 st.subheader("選擇資料時間區間")
 if choice == '台積電: 2022.1.1 至 2024.4.9':
-    start_date = st.text_input('輸入開始日期(日期格式: 2022-01-01), 區間:2022-01-01 至 2024-04-09', '2022-01-01')
-    end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-09), 區間:2022-01-01 至 2024-04-09', '2024-04-09')
-if choice == '大台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    start_date = st.text_input('輸入開始日期(日期格式: 2023-12-21), 區間:2023-12-21 至 2024-04-11', '2023-12-21')
-    end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-11), 區間:2023-12-21 至 2024-04-11', '2024-04-11')
-if choice == '小台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    start_date = st.text_input('輸入開始日期(日期格式: 2023-12-21), 區間:2023-12-21 至 2024-04-11', '2023-12-21')
-    end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-11), 區間:2023-12-21 至 2024-04-11', '2024-04-11')
-if choice == '英業達2020.1.2 至 2024.4.12':
-    start_date = st.text_input('輸入開始日期(日期格式: 2020-01-02), 區間:2020-01-02 至 2024-04-12', '2020-01-02')
-    end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-12), 區間:2020-01-02 至 2024-04-12', '2024-04-12')
-if choice == '堤維西2020.1.2 至 2024.4.12':
-    start_date = st.text_input('輸入開始日期(日期格式: 2020-01-02), 區間:2020-01-02 至 2024-04-12', '2020-01-02')
-    end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-12), 區間:2020-01-02 至 2024-04-12', '2024-04-12')
-
+    start_date = st.text_input('輸入開始日期(日期格式: 2022-01-03), 區間:2022-01-03 至 2022-12-30', '2022-01-01')
+    end_date = st.text_input('輸入結束日期 (日期格式: 2022-01-04), 區間:2022-01-01 至 2022-12-30', '2022-04-09')
 
 
 start_date = datetime.datetime.strptime(start_date,'%Y-%m-%d')
