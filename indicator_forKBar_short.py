@@ -23,31 +23,35 @@ class KBar():
         self.cycle_duration = cycle_duration
         # 其他初始化代碼...
     # 設定初始化變數
-    def __init__(self,date,cycle = 1):
-        # K棒的頻率(分鐘)
-        self.TAKBar = {}
-        self.TAKBar['time'] = np.array([])
-        self.TAKBar['open'] = np.array([])
-        self.TAKBar['high'] = np.array([])
-        self.TAKBar['low'] = np.array([])
-        self.TAKBar['close'] = np.array([])
-        self.TAKBar['volume'] = np.array([])
-        self.current = datetime.datetime.strptime(date + ' 00:00:00','%Y-%m-%d %H:%M:%S')
-        self.cycle = datetime.timedelta(minutes = cycle)
-    # 更新最新報價
-    def AddPrice(self,time, open_price, close_price, low_price, high_price,volume):
-        # 同一根K棒
-        if time <= self.current:
-            # 更新收盤價
+     def __init__(self, date, cycle_duration):
+        self.current = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        self.cycle_duration = cycle_duration
+        # 初始化TAKBar字典，確保所有列表都初始化為空列表
+        self.TAKBar = {
+            'time': [],
+            'open': [],
+            'close': [],
+            'low': [],
+            'high': [],
+            'volume': []
+        }
+        # 其他初始化代碼...
+
+    def AddPrice(self, time, open_price, close_price, low_price, high_price, qty):
+        # 確保在添加價格之前初始化了所有的KBar數據
+        if not self.TAKBar['time']:
+            self.TAKBar['time'].append(time)
+            self.TAKBar['open'].append(open_price)
+            self.TAKBar['close'].append(close_price)
+            self.TAKBar['low'].append(low_price)
+            self.TAKBar['high'].append(high_price)
+            self.TAKBar['volume'].append(qty)
+        else:
+            # 修改最後一個元素
             self.TAKBar['close'][-1] = close_price
-            # 更新成交量
-            self.TAKBar['volume'][-1] += volume  
-            # 更新最高價
-            self.TAKBar['high'][-1] = max(self.TAKBar['high'][-1],high_price)
-            # 更新最低價
-            self.TAKBar['low'][-1] = min(self.TAKBar['low'][-1],low_price)  
-            # 若沒有更新K棒，則回傳0
-            return 0
+            self.TAKBar['low'][-1] = min(self.TAKBar['low'][-1], low_price)
+            self.TAKBar['high'][-1] = max(self.TAKBar['high'][-1], high_price)
+            self.TAKBar['volume'][-1] += qty
         # 不同根K棒
         else:
             while time > self.current:
