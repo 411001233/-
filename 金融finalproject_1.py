@@ -474,4 +474,4 @@ if choice_strategy == '<進場>: 移動平均線黃金交叉作多,死亡交叉�
                         OrderRecord.Cover('Buy', KBar_df['product'][n+1],KBar_df['time'][n+1],KBar_df['open'][n+1],-OrderRecord.GetOpenInterest())
                         continue
 
-
+ChartOrder_MA(KBar_df,OrderRecord.GetTradeRecord())
