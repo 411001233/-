@@ -38,17 +38,17 @@ def load_data(path):
     df = pd.read_pickle(path)
     return df
 # ##### 讀取 excel 檔
-df_original = pd.read_excel("kbars_2330_2022-01-01-2022-07-31.xlsx")
-df_original.to_pickle('kbars_2330_2022-01-01-2022-07-31.pkl')
+df_original = pd.read_excel("kbars_2330_2022-01-01-2024-04-09.xlsx")
+df_original.to_pickle('kbars_2330_2022-01-01-2024-04-09.pkl')
 
 ###### 選擇金融商品
 st.subheader("選擇金融商品: ")
 # choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指2024.12到期: 2024.1 至 2024.4.9']
-choices = ['瓦城: 2022.1.1 至 2022.7.31']
+choices = ['瓦城: 2022.1.1 至 2024.4.9']
 choice = st.selectbox('選擇金融商品', choices, index=0)
 ##### 读取Pickle文件
-if choice == '瓦城: 2022.1.1 至 2022.7.31':
-    df_original = load_data('kbars_2330_2022-01-01-2022-07-31.pkl')
+if choice == '瓦城: 2022.1.1 至 2024.4.9':
+    df_original = load_data('kbars_2330_2022-01-01-2024-04-09.pkl')
     # df_original = load_data('kbars_2330_2022-01-01-2024-04-09.pkl')
     # df_original = load_data('kbars_2330_2022-01-01-2022-11-18.pkl')  
     # df_original = pd.read_pickle('kbars_2330_2022-01-01-2022-11-18.pkl')
@@ -62,7 +62,7 @@ if choice == '瓦城: 2022.1.1 至 2022.7.31':
 
 ###### 選擇資料區間
 st.subheader("選擇資料時間區間")
-if choice == '台積電: 2022.1.1 至 2024.4.9':
+if choice == '瓦城: 2022.1.1 至 2024.4.9':
     start_date = st.text_input('輸入開始日期(日期格式: 2022-01-01), 區間:2022-01-01 至 2024-04-09', '2022-01-01')
     end_date = st.text_input('輸入結束日期 (日期格式: 2024-04-09), 區間:2022-01-01 至 2024-04-09', '2024-04-09')
 
